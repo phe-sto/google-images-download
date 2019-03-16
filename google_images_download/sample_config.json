@@ -1,16 +1,22 @@
 {
-    "Records": [
-        {
-            "keywords": "apple",
-            "limit": 5,
-            "color": "green",
-            "print_urls": true
-        },
-        {
-            "keywords": "universe",
-            "limit": 15,
-            "size": "large",
-            "print_urls": true
-        }
-    ]
+  "Records": [
+    {
+      "keywords": "apple",
+      "limit": 2,
+      "color": "green",
+      "print_urls": true
+    },
+    {
+      "keywords": "universe",
+      "limit": 1,
+      "size": "large",
+      "print_urls": true
+    },
+    {
+      "keywords": "universe",
+      "limit": 2,
+      "size": "large",
+      "print_urls": true
+    }
+  ]
 }
