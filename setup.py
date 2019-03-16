@@ -1,8 +1,9 @@
-from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-__version__ = '2.5.0'
+from setuptools import setup, find_packages
+
+__version__ = '0.1'
 
 here = path.abspath(path.dirname(__file__))
 
@@ -22,29 +23,25 @@ setup(
     version=__version__,
     description="Python Script to download hundreds of images from 'Google Images'. It is a ready-to-run code! ",
     long_description=long_description,
-    url='https://github.com/hardikvasa/google-images-download',
-    download_url='https://github.com/hardikvasa/google-images-download/tarball/' + __version__,
-    license='MIT',
+    url='https://github.com/phe-sto/google-images-download',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.6'
     ],
-    keywords='google images download save filter color image-search image-dataset image-scrapper image-gallery terminal command-line',
+    keywords='google images dataset creator download save filter color image-search image-dataset image-scrapper image-gallery terminal command-line',
     packages=find_packages(exclude=['docs', 'tests*']),
     include_package_data=True,
-    author='Hardik Vasa',
+    author='Christohe Brun',
     install_requires=install_requires,
     dependency_links=dependency_links,
-    author_email='hnvasa@gmail.com',
+    author_email='christophe.brun@papit.fr',
     entry_points={
         'console_scripts': [
-            'googleimagesdownload = google_images_download.google_images_download:main'
+            'google-images-download = google_images_download.google_images_download:main'
         ]},
 
 )

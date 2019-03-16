@@ -23,7 +23,7 @@ Detailed instructions in the troubleshooting section.
 Compatibility
 =============
 
-This program is compatible with both the versions of python - 2.x and 3.x (recommended).
+This program is compatible with python 3.x only.
 It is a download-and-run program with no changes to the file.
 You will just have to specify parameters through the command line.
 
@@ -31,7 +31,6 @@ Installation
 ============
 
 You can use **one of the below methods** to download and use this repository.
-
 Using pip
 
 .. code-block:: bash
@@ -56,7 +55,7 @@ If installed via pip or using CLI, use the following command:
 
 .. code-block:: bash
 
-    $ googleimagesdownload [Arguments...]
+    $ GoogleImageDownload [Arguments...]
 
 If downloaded via the UI, unzip the file downloaded, go to the 'google_images_download' directory and use one of the below commands:
 
@@ -76,8 +75,8 @@ If you would want to use this library from another python file, you could use it
 
     from google_images_download import google_images_download
 
-    response = google_images_download.googleimagesdownload()
-    absolute_image_paths = response.download({<Arguments...>})
+    response = google_images_download.GoogleImageDownload({<Arguments...>})
+    absolute_image_paths, url = response.download()
 
 
 Arguments
@@ -180,7 +179,7 @@ Arguments
 +-------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------+
 | type              | t           | Denotes the type of image to be downloaded.                                                                                   |
 |                   |             |                                                                                                                               |
-|                   |             | `Possible values: face, photo, clip-art, line-drawing, animated`                                                              |
+|                   |             | `Possible values: face, photo, clipart, line-drawing, animated`                                                               |
 +-------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------+
 | time              | w           | Denotes the time the image was uploaded/indexed.                                                                              |
 |                   |             |                                                                                                                               |
@@ -188,7 +187,7 @@ Arguments
 +-------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------+
 | time_range        | wr          | Denotes the time range for which you want to search the images                                                                |
 |                   |             |                                                                                                                               |
-|                   |             | The value of this parameter should be in the following format '{"time_min":"MM/DD/YYYY","time_max":"MM/DD/YYYY"}'             |
+|                   |             | The value of this parameter should be in the following format {"time_min":"MM/DD/YYYY","time_max":"MM/DD/YYYY"}               |
 +-------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------+
 | delay             | d           | Time to wait between downloading two images                                                                                   |
 |                   |             |                                                                                                                               |
@@ -346,7 +345,7 @@ Examples
 
     from google_images_download import google_images_download   #importing the library
 
-    response = google_images_download.googleimagesdownload()   #class instantiation
+    response = google_images_download.GoogleImageDownload()   #class instantiation
 
     arguments = {"keywords":"Polar bears,baloons,Beaches","limit":20,"print_urls":True}   #creating list of arguments
     paths = response.download(arguments)   #passing the arguments to the function
@@ -356,13 +355,13 @@ Examples
 
 .. code-block:: bash
 
-    $ googleimagesdownload -cf example.json
+    $ GoogleImageDownload -cf example.json
 
 - Simple example of using keywords and limit arguments
 
 .. code-block:: bash
 
-    $ googleimagesdownload --keywords "Polar bears, baloons, Beaches" --limit 20
+    $ GoogleImageDownload --keywords "Polar bears, baloons, Beaches" --limit 20
 
 -  Using Suffix Keywords allows you to specify words after the main
    keywords. For example if the ``keyword = car`` and
@@ -371,85 +370,85 @@ Examples
 
 .. code-block:: bash
 
-    $ googleimagesdownload --k "car" -sk 'red,blue,white' -l 10
+    $ GoogleImageDownload --k "car" -sk 'red,blue,white' -l 10
 
 -  To use the short hand command
 
 .. code-block:: bash
 
-    $ googleimagesdownload -k "Polar bears, baloons, Beaches" -l 20
+    $ GoogleImageDownload -k "Polar bears, baloons, Beaches" -l 20
 
 -  To download images with specific image extension/format
 
 .. code-block:: bash
 
-    $ googleimagesdownload --keywords "logo" --format svg
+    $ GoogleImageDownload --keywords "logo" --format svg
 
 -  To use color filters for the images
 
 .. code-block:: bash
 
-    $ googleimagesdownload -k "playground" -l 20 -co red
+    $ GoogleImageDownload -k "playground" -l 20 -co red
 
 -  To use non-English keywords for image search
 
 .. code-block:: bash
     
-    $ googleimagesdownload -k "北极熊" -l 5
+    $ GoogleImageDownload -k "北极熊" -l 5
 
 -  To download images from the google images link
 
 .. code-block:: bash
     
-    $ googleimagesdownload -k "sample" -u <google images page URL>
+    $ GoogleImageDownload -k "sample" -u <google images page URL>
 
 -  To save images in specific main directory (instead of in 'downloads')
 
 .. code-block:: bash
     
-    $ googleimagesdownload -k "boat" -o "boat_new"
+    $ GoogleImageDownload -k "boat" -o "boat_new"
 
 -  To download one single image with the image URL
 
 .. code-block:: bash
     
-    $ googleimagesdownload --keywords "baloons" --single_image <URL of the images>
+    $ GoogleImageDownload --keywords "baloons" --single_image <URL of the images>
 
 -  To download images with size and type constrains
 
 .. code-block:: bash
     
-    $ googleimagesdownload --keywords "baloons" --size medium --type animated
+    $ GoogleImageDownload --keywords "baloons" --size medium --type animated
 
 -  To download images with specific usage rights
 
 .. code-block:: bash
     
-    $ googleimagesdownload --keywords "universe" --usage_rights labeled-for-reuse
+    $ GoogleImageDownload --keywords "universe" --usage_rights labeled-for-reuse
 
 -  To download images with specific color type
 
 .. code-block:: bash
     
-    $ googleimagesdownload --keywords "flowers" --color_type black-and-white
+    $ GoogleImageDownload --keywords "flowers" --color_type black-and-white
 
 -  To download images with specific aspect ratio
 
 .. code-block:: bash
     
-    $ googleimagesdownload --keywords "universe" --aspect_ratio panoramic
+    $ GoogleImageDownload --keywords "universe" --aspect_ratio panoramic
 
 -  To download images which are similar to the image in the image URL that you provided (Reverse Image search).
 
 .. code-block:: bash
     
-    $ googleimagesdownload -si <image url> -l 10
+    $ GoogleImageDownload -si <image url> -l 10
 
 -  To download images from specific website or domain name for a given keyword
 
 .. code-block:: bash
     
-    $ googleimagesdownload --keywords "universe" --specific_site example.com
+    $ GoogleImageDownload --keywords "universe" --specific_site example.com
 
 ===> The images would be downloaded in their own sub-directories inside the main directory
 (either the one you provided or in 'downloads') in the same folder you are in.
@@ -465,29 +464,45 @@ If you do see SSL errors on Mac for Python 3,
 please go to Finder —> Applications —> Python 3 —> Click on the ‘Install Certificates.command’
 and run the file.
 
-**#~~~# googleimagesdownload: command not found**
+**#~~~# GoogleImageDownload: command not found**
 
-While using the above commands, if you get ``Error: -bash: googleimagesdownload: command not found`` then you have to set the correct path variable.
+While using the above commands, if you get ``Error: -bash: GoogleImageDownload: command not found`` then you have to set the correct path variable.
 
 To get the details of the repo, run the following command:
 
 .. code-block:: bash
 
-    $ pip show -f google_images_download 
+    $ pip show -f google_images_download
 
 you will get the result like this:
 
 .. code-block:: bash
 
-	Location: /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages
-	Files:
-	  ../../../bin/googleimagesdownload
-
-together they make: ``/Library/Frameworks/Python.framework/Versions/2.7/bin`` which you need add it to the path:
-
-.. code-block:: bash
-	
-    $ export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin"
+    Name: google-images-download
+    Version: 2.5.0
+    Summary: Python Script to download hundreds of images from 'Google Images'. It is a ready-to-run code!
+    Home-page: https://github.com/hardikvasa/google-images-download
+    Author: Hardik Vasa
+    Author-email: hnvasa@gmail.com
+    License: MIT
+    Location: /usr/local/lib/python3.5/dist-packages
+    Requires: selenium
+    Files:
+      ../../../bin/googleimagesdownload
+      google_images_download-2.5.0.dist-info/DESCRIPTION.rst
+      google_images_download-2.5.0.dist-info/INSTALLER
+      google_images_download-2.5.0.dist-info/METADATA
+      google_images_download-2.5.0.dist-info/RECORD
+      google_images_download-2.5.0.dist-info/WHEEL
+      google_images_download-2.5.0.dist-info/entry_points.txt
+      google_images_download-2.5.0.dist-info/metadata.json
+      google_images_download-2.5.0.dist-info/top_level.txt
+      google_images_download/__init__.py
+      google_images_download/__main__.py
+      google_images_download/__pycache__/__init__.cpython-35.pyc
+      google_images_download/__pycache__/__main__.cpython-35.pyc
+      google_images_download/__pycache__/google_images_download.cpython-35.pyc
+      google_images_download/google_images_download.py
 
 
 **#~~~# [Errno 13] Permission denied creating directory 'downloads'**

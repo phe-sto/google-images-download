@@ -1,1 +1,5 @@
 selenium
+coverage
+pytest
+pytest-html
+sphinx
