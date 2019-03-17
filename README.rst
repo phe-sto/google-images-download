@@ -1,9 +1,13 @@
 Google Images Download
 ######################
 
-Python Script for 'searching' and 'downloading' hundreds of Google images to the local hard disk!
-
-Contents
+Python Script for 'searching' and 'downloading' giant image datasets from Google images to the local hard disk!
+It's more of less the fork number 800 of the `googleimages-download library <https://github.com/hardikvasa/google-images-download/>`__.
+With more than 4 thousand stars on GitHub the library surely filled 100% dataset creator needs. On the other hand, it
+seemed hard to maintain for various reasons. One of them being the python2/3 compatibility leading to many
+if/else when using urllib. This one being completely different between python 2 and 3. This fork only support python 3.
+The original library did not comply Pythonic standards in term of coding, readability, testing and documentation. It
+therefore create a technical debt.
 
 .. contents:: :local:
 
@@ -19,6 +23,101 @@ if you would only want to download up to 100 images per keyword. If you would wa
 images** per keyword, then you would need to install ``Selenium`` library along with ``chromedriver``.
 Detailed instructions in the troubleshooting section.
 
+Library structure
+=================
+
+.. code-block:: bash
+
+    .
+    ├── build.sh
+    ├── docs
+    │   └── source
+    │       ├── conf.py
+    │       ├── index.rst
+    │       └── papit.png
+    ├── google_images_download
+    │   ├── google_images_download.py
+    │   ├── __init__.py
+    │   ├── __main__.py
+    │   └── sample_config.json
+    ├── tests
+    │   ├── __init__.py
+    │   ├── test_google_images_download.py
+    │   └── test_sample.py
+    ├── install.sh
+    ├── make.bat
+    ├── Makefile
+    ├── MANIFEST.in
+    ├── README.rst
+    ├── requirements.txt
+    ├── review-test.sh
+    ├── setup.cfg
+    ├── setup.py
+    ├── tests
+
+Build
+=====
+
+.. code-block:: bash
+
+    $ git clone https://github.com/phe-sto/google-images-download.git
+    $ python3 setup.py bdist_wheel
+    OR
+    $ python setup.py bdist_wheel
+    OR
+    sh build.sh
+
+The ``build.sh`` also build the sphinx documentation in HTML format.
+
+Installation
+============
+
+.. code-block:: bash
+
+    $ git clone https://github.com/phe-sto/google-images-download.git
+    $ cd google-images-download && sudo python3 setup.py install
+    OR
+    $ python3 -m pip install google_images_download-0.1-py2.py3-none-any.whl
+    OR
+    sh install.sh
+
+Manually using UI
+
+Go to the `repo on github <https://github.com/phe-sto/google-images-download>`__ -> Click on 'Clone or Download' -> Click on 'Download ZIP' and save it on your local disk.
+
+Test and review
+===============
+
+A basic code review is performed `pylint <https://www.pylint.org>`__. Test from the ``tests`` directory are scheduled
+using the amazing testing framework `pytest <https://docs.pytest.org>`__. `Coverage <https://coverage.readthedocs.io>`__
+is also used to produce a coverage report. `Tox <https://tox.readthedocs.io>`__ is also used to test the package.
+
+.. code-block:: bash
+
+    sh review-test.sh
+
+**Test report**
+
+Consult the current `test report <https://www.papit.fr/google-images-download/test>`__.
+
+**Coverage report**
+
+Consult the current `test coverage report report <https://www.papit.fr/google-images-download/coverage>`__.
+
+Contribute
+==========
+
+Anyone is welcomed and even encouraged to contribute to this project.
+If you would like to make a change, open a pull request. Please do not forget to update tests and run the
+``review-test.sh`` script that produce test and coverage reports. All new Python shall be documented using docstrings in
+reStructuredText to be included in `sphinx documentation framework <https://pythonhosted.org/an_example_pypi_project/sphinx.html>`__.
+For issues and discussion visit the `Issue Tracker <https://github.com/phe-sto/google-images-download/issues>`__.
+The aim of this repo is to keep it simple, stand-alone and compliant with Python development standards.
+
+Full API documentation
+======================
+
+The full documentation can be founded under the developer `PapIT website <https://www.papit.fr/google-images-download>`__.
 
 Compatibility
 =============
@@ -27,27 +126,6 @@ This program is compatible with python 3.x only.
 It is a download-and-run program with no changes to the file.
 You will just have to specify parameters through the command line.
 
-Installation
-============
-
-You can use **one of the below methods** to download and use this repository.
-Using pip
-
-.. code-block:: bash
-
-    $ pip install google_images_download
-
-Manually using CLI
-
-.. code-block:: bash
-
-    $ git clone https://github.com/hardikvasa/google-images-download.git
-    $ cd google-images-download && sudo python setup.py install
-
-Manually using UI
-
-Go to the `repo on github <https://github.com/hardikvasa/google-images-download>`__ ==> Click on 'Clone or Download' ==> Click on 'Download ZIP' and save it on your local disk.
-
 Usage - Using Command Line Interface
 ====================================
 
@@ -55,7 +133,7 @@ If installed via pip or using CLI, use the following command:
 
 .. code-block:: bash
 
-    $ GoogleImageDownload [Arguments...]
+    $ google-image-download[Arguments...]
 
 If downloaded via the UI, unzip the file downloaded, go to the 'google_images_download' directory and use one of the below commands:
 
@@ -66,8 +144,8 @@ If downloaded via the UI, unzip the file downloaded, go to the 'google_images_do
     $ python google_images_download.py [Arguments...]
 
 
-Usage - From another python file
-================================
+Usage - From another python script
+==================================
 
 If you would want to use this library from another python file, you could use it as shown below:
 
@@ -88,7 +166,7 @@ Arguments
 | config_file       | cf          | You can pass the arguments inside a config file. This is an alternative to passing arguments on the command line directly.    |
 |                   |             |                                                                                                                               |
 |                   |             | Please refer to the                                                                                                           |
-|                   |             | `config file format <https://github.com/hardikvasa/google-images-download/blob/master/README.rst#config-file-format>`__ below |
+|                   |             | `config file format <https://github.com/phe-sto/google-images-download/blob/master/README.rst#config-file-format>`__ below    |
 |                   |             |                                                                                                                               |
 |                   |             | * If 'config_file' argument is present, the program will use the config file and command line arguments will be discarded     |
 |                   |             | * Config file can only be in **JSON** format                                                                                  |
@@ -347,7 +425,7 @@ Examples
 
     response = google_images_download.GoogleImageDownload()   #class instantiation
 
-    arguments = {"keywords":"Polar bears,baloons,Beaches","limit":20,"print_urls":True}   #creating list of arguments
+    arguments = {"keywords": "Polar bears,baloons,Beaches", "limit": 20, "print_urls": True}   # creating list of arguments
     paths = response.download(arguments)   #passing the arguments to the function
     print(paths)   #printing absolute paths of the downloaded images
 
@@ -355,13 +433,13 @@ Examples
 
 .. code-block:: bash
 
-    $ GoogleImageDownload -cf example.json
+    $ google-image-download-cf example.json
 
 - Simple example of using keywords and limit arguments
 
 .. code-block:: bash
 
-    $ GoogleImageDownload --keywords "Polar bears, baloons, Beaches" --limit 20
+    $ google-image-download--keywords "Polar bears, baloons, Beaches" --limit 20
 
 -  Using Suffix Keywords allows you to specify words after the main
    keywords. For example if the ``keyword = car`` and
@@ -370,158 +448,153 @@ Examples
 
 .. code-block:: bash
 
-    $ GoogleImageDownload --k "car" -sk 'red,blue,white' -l 10
+    $ google-image-download--k "car" -sk 'red,blue,white' -l 10
 
 -  To use the short hand command
 
 .. code-block:: bash
 
-    $ GoogleImageDownload -k "Polar bears, baloons, Beaches" -l 20
+    $ google-image-download-k "Polar bears, baloons, Beaches" -l 20
 
 -  To download images with specific image extension/format
 
 .. code-block:: bash
 
-    $ GoogleImageDownload --keywords "logo" --format svg
+    $ google-image-download--keywords "logo" --format svg
 
 -  To use color filters for the images
 
 .. code-block:: bash
 
-    $ GoogleImageDownload -k "playground" -l 20 -co red
+    $ google-image-download-k "playground" -l 20 -co red
 
 -  To use non-English keywords for image search
 
 .. code-block:: bash
     
-    $ GoogleImageDownload -k "北极熊" -l 5
+    $ google-image-download-k "北极熊" -l 5
 
 -  To download images from the google images link
 
 .. code-block:: bash
     
-    $ GoogleImageDownload -k "sample" -u <google images page URL>
+    $ google-image-download-k "sample" -u <google images page URL>
 
 -  To save images in specific main directory (instead of in 'downloads')
 
 .. code-block:: bash
     
-    $ GoogleImageDownload -k "boat" -o "boat_new"
+    $ google-image-download-k "boat" -o "boat_new"
 
 -  To download one single image with the image URL
 
 .. code-block:: bash
     
-    $ GoogleImageDownload --keywords "baloons" --single_image <URL of the images>
+    $ google-image-download--keywords "baloons" --single_image <URL of the images>
 
 -  To download images with size and type constrains
 
 .. code-block:: bash
     
-    $ GoogleImageDownload --keywords "baloons" --size medium --type animated
+    $ google-image-download--keywords "baloons" --size medium --type animated
 
 -  To download images with specific usage rights
 
 .. code-block:: bash
     
-    $ GoogleImageDownload --keywords "universe" --usage_rights labeled-for-reuse
+    $ google-image-download--keywords "universe" --usage_rights labeled-for-reuse
 
 -  To download images with specific color type
 
 .. code-block:: bash
     
-    $ GoogleImageDownload --keywords "flowers" --color_type black-and-white
+    $ google-image-download--keywords "flowers" --color_type black-and-white
 
 -  To download images with specific aspect ratio
 
 .. code-block:: bash
     
-    $ GoogleImageDownload --keywords "universe" --aspect_ratio panoramic
+    $ google-image-download--keywords "universe" --aspect_ratio panoramic
 
 -  To download images which are similar to the image in the image URL that you provided (Reverse Image search).
 
 .. code-block:: bash
     
-    $ GoogleImageDownload -si <image url> -l 10
+    $ google-image-download-si <image url> -l 10
 
 -  To download images from specific website or domain name for a given keyword
 
 .. code-block:: bash
     
-    $ GoogleImageDownload --keywords "universe" --specific_site example.com
+    $ google-image-download--keywords "universe" --specific_site example.com
 
-===> The images would be downloaded in their own sub-directories inside the main directory
+The images would be downloaded in their own sub-directories inside the main directory
 (either the one you provided or in 'downloads') in the same folder you are in.
+
+
+Flow Chart
+==========
+
+``QUERY FORMATING`` > ``DOWNLOAD HTML`` > ``SCRAP LINKS`` > ``SAVE IMAGES``
 
 --------------
 
 Troubleshooting Errors/Issues
 =============================
 
-**#~~~# SSL Errors**
+**SSL Errors**
 
-If you do see SSL errors on Mac for Python 3,
-please go to Finder —> Applications —> Python 3 —> Click on the ‘Install Certificates.command’
-and run the file.
+.. warning::
+    If you do see SSL errors on Mac for Python 3,
+    please go to Finder —> Applications —> Python 3 —> Click on the ‘Install Certificates.command’
+    and run the file.
 
-**#~~~# GoogleImageDownload: command not found**
+**GoogleImageDownload: command not found**
 
-While using the above commands, if you get ``Error: -bash: GoogleImageDownload: command not found`` then you have to set the correct path variable.
-
-To get the details of the repo, run the following command:
+.. warning::
+    While using the above commands, if you get ``Error: -bash: GoogleImageDownload: command not found`` then you have to set the correct path variable.
+    To get the details of the repo, run the following command:
 
 .. code-block:: bash
 
     $ pip show -f google_images_download
+    OR
+    $ pip3 show -f google_images_download
 
 you will get the result like this:
 
 .. code-block:: bash
 
     Name: google-images-download
-    Version: 2.5.0
-    Summary: Python Script to download hundreds of images from 'Google Images'. It is a ready-to-run code!
-    Home-page: https://github.com/hardikvasa/google-images-download
-    Author: Hardik Vasa
-    Author-email: hnvasa@gmail.com
-    License: MIT
-    Location: /usr/local/lib/python3.5/dist-packages
-    Requires: selenium
+    Version: 0.1
+    Summary: Python Script to download giant dataset of images from 'Google Images'. It is a ready-to-run code!
+    Home-page: https://github.com/phe-sto/google-images-download
+    Author: Christohe Brun
+    Author-email: christophe.brun@papit.fr
+    License: NO LICENSE, FEEL FREE!
+    Location: /home/christophe/google-images-download
+    Requires: selenium, coverage, pytest, pytest-html, sphinx, pylint, tox, install sphinx_bootstrap_theme
     Files:
-      ../../../bin/googleimagesdownload
-      google_images_download-2.5.0.dist-info/DESCRIPTION.rst
-      google_images_download-2.5.0.dist-info/INSTALLER
-      google_images_download-2.5.0.dist-info/METADATA
-      google_images_download-2.5.0.dist-info/RECORD
-      google_images_download-2.5.0.dist-info/WHEEL
-      google_images_download-2.5.0.dist-info/entry_points.txt
-      google_images_download-2.5.0.dist-info/metadata.json
-      google_images_download-2.5.0.dist-info/top_level.txt
-      google_images_download/__init__.py
-      google_images_download/__main__.py
-      google_images_download/__pycache__/__init__.cpython-35.pyc
-      google_images_download/__pycache__/__main__.cpython-35.pyc
-      google_images_download/__pycache__/google_images_download.cpython-35.pyc
-      google_images_download/google_images_download.py
+    Cannot locate installed-files.txt
 
-
-**#~~~# [Errno 13] Permission denied creating directory 'downloads'**
+**Permission denied creating directory 'downloads'**
 
 When you run the command, it downloads the images in the current directory (the directory from where you are running the command). If you get permission denied error for creating the `downloads directory`, then move to a directory in which you have the write permission and then run the command again.
 
 
-**#~~~# Permission denied while installing the library**
+**Permission denied while installing the library**
 
 On MAC and Linux, when you get permission denied when installing the library using pip, try doing a user install.
 
 .. code-block:: bash
 	
-    $ pip install google_images_download --user
+    $ python3 -m pip install google_images_download-0.1-py2.py3-none-any.whl --user
 
-You can also run pip install as a superuser with ``sudo pip install google_images_download`` but it is not generally a good idea because it can cause issues with your system-level packages.
+You can also run pip install as a superuser with ``sudo pip3 install google_images_download-0.1-py2.py3-none-any.whl``
+but it is not generally a good idea because it can cause issues with your system-level packages.
 
 
-**#~~~# Installing the chromedriver (with Selenium)**
+**Installing the chromedriver (with Selenium)**
 
 If you would want to download more than 100 images per keyword, then you will need to install 'selenium' library along with 'chromedriver' extension.
 
@@ -542,24 +615,6 @@ For **All the operating systems** you will have to use '--chromedriver' or '-cd'
 chromedriver that you have downloaded in your machine.
 
 If on any rare occasion the chromedriver does not work for you, try downgrading it to a lower version.
-
-Structure
-=========
-
-Below diagram represents the algorithm logic to download images.
-
-.. figure:: http://www.zseries.in/flow-chart.png
-   :alt:
-
-Contribute
-==========
-
-Anyone is welcomed to contribute to this script.
-If you would like to make a change, open a pull request.
-For issues and discussion visit the
-`Issue Tracker <https://github.com/hardikvasa/google-images-download/issues>`__.
-
-The aim of this repo is to keep it simple, stand-alone, backward compatible and 3rd party dependency proof.
 
 Disclaimer
 ==========

@@ -21,7 +21,7 @@ dependency_links = [x.strip().replace('git+', '') for x in all_reqs if x.startsw
 setup(
     name='google_images_download',
     version=__version__,
-    description="Python Script to download hundreds of images from 'Google Images'. It is a ready-to-run code! ",
+    description="Python Script to download giant dataset of images from 'Google Images'. It is a ready-to-run code! ",
     long_description=long_description,
     url='https://github.com/phe-sto/google-images-download',
     classifiers=[
@@ -35,6 +35,7 @@ setup(
     keywords='google images dataset creator download save filter color image-search image-dataset image-scrapper image-gallery terminal command-line',
     packages=find_packages(exclude=['docs', 'tests*']),
     include_package_data=True,
+    license="NO LICENSE, FEEL FREE!",
     author='Christohe Brun',
     install_requires=install_requires,
     dependency_links=dependency_links,

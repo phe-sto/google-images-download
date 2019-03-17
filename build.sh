@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo "########## BUILD DOCUMENTATION ##########"
 make clean
 make html

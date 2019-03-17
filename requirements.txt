@@ -3,3 +3,6 @@ coverage
 pytest
 pytest-html
 sphinx
+pylint
+tox
+install sphinx_bootstrap_theme

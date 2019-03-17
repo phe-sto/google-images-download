@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo "########## TOX REVIEW          ##########"
 tox
 echo "########## PYLINT REVIEW       ##########"

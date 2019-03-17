@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo "########## PIP3 FORCE UNINSTALL ##########"
 python3 -m pip uninstall google_images_download -y
 echo "########## PIP3 INSTALL         ##########"
