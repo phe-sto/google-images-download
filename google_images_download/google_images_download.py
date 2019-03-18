@@ -8,6 +8,7 @@ import codecs
 import datetime
 import http.client
 import json
+import logging
 import os
 import ssl
 # Import Libraries
@@ -19,6 +20,9 @@ from urllib.request import Request, urlopen, URLError, HTTPError
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+
+logging.basicConfig(filename='google-images-download.log',
+                    level=logging.INFO, format="%(asctime)s -- %(name)s -- %(levelname)s -- %(message)s")
 
 http.client._MAXHEADERS = 1000
 
@@ -192,11 +196,8 @@ class GoogleImageDownload:
             response_data = str(resp.read())
             return response_data
         except Exception as error:
-            print(
-                """Could not open URL. Please check your internet connection and/or ssl settings
-                Error message:
-                {0}""".format(
-                    str(error)))
+            logging.info("""Could not open URL. Please check your internet connection and/or ssl settings
+                Error message:\n%s""", str(error))
 
     @staticmethod
     def download_extended_page(url, chrome_driver_path):
@@ -213,16 +214,17 @@ class GoogleImageDownload:
         try:
             browser = webdriver.Chrome(chrome_driver_path, chrome_options=options)
         except Exception as error:
-            print("Looks like we cannot locate the path the 'chrome_driver_path' (use the '--chrome_driver_path' "
-                  "argument to specify the path to the executable.) or google chrome browser is not "
-                  "installed on your machine (exception: %s)" % error)
+            logging.info(
+                "Looks like we cannot locate the path the 'chrome_driver_path' (use the '--chrome_driver_path' "
+                "argument to specify the path to the executable.) or google chrome browser is not "
+                "installed on your machine (exception: %s)" % error)
             sys.exit()
         browser.set_window_size(1024, 768)
 
         # Open the link
         browser.get(url)
         sleep(1)
-        print("Getting you a lot of images. This may take a few moments...")
+        logging.info("Getting you a lot of images. This may take a few moments...")
 
         element = browser.find_element_by_tag_name("body")
         # Scroll down
@@ -240,7 +242,7 @@ class GoogleImageDownload:
                 element.send_keys(Keys.PAGE_DOWN)
                 sleep(0.3)  # bot id protection
 
-        print("Reached end of Page.")
+        logging.info("Reached end of Page.")
         sleep(0.5)
 
         source = browser.page_source  # page source
@@ -348,7 +350,7 @@ class GoogleImageDownload:
         output_file.write(data)
         output_file.close()
 
-        print("completed ====> " + image_name)
+        logging.info("completed ====> " + image_name)
         return
 
     @staticmethod
@@ -470,7 +472,7 @@ class GoogleImageDownload:
         if url:
             url = url
         elif similar_images:
-            print(similar_images)
+            logging.info(similar_images)
             keyword = self.similar_images(similar_images)
             url = 'https://www.google.com/search?q=' \
                   + keyword \
@@ -535,8 +537,7 @@ class GoogleImageDownload:
                     else:
                         search_keyword.append(line.replace('\n', '').replace('\r', ''))
             else:
-                print("Invalid file type: Valid file types are either .txt or .csv \n"
-                      "exiting...")
+                logging.info("Invalid file type: Valid file types are either .txt or .csv exiting...")
                 sys.exit()
         return search_keyword
 
@@ -595,7 +596,7 @@ class GoogleImageDownload:
            :return: A tuple made of the download status and the downlaod message.
         """
         if print_urls or no_download:
-            print("Image URL: " + image_url)
+            logging.info("Image URL: " + image_url)
         if no_download:
             return "success", "Printed url without downloading"
         try:
@@ -630,7 +631,7 @@ class GoogleImageDownload:
 
                 # image size parameter
                 if print_size:
-                    print("Image Size: " + str(GoogleImageDownload.file_size(path)))
+                    logging.info("Image Size: " + str(GoogleImageDownload.file_size(path)))
 
             except UnicodeEncodeError as error:
                 download_status = 'fail'
@@ -672,7 +673,7 @@ class GoogleImageDownload:
            :return: A tuple made of the download status, the download message, the image name and the absolute path.
         """
         if print_urls or no_download:
-            print("Image URL: " + image_url)
+            logging.info("Image URL: " + image_url)
         if no_download:
             return "success", "Printed url without downloading", None, None
         try:
@@ -728,7 +729,7 @@ class GoogleImageDownload:
 
                 # image size parameter
                 if print_size:
-                    print("Image Size: " + str(GoogleImageDownload.file_size(path)))
+                    logging.info("Image Size: " + str(GoogleImageDownload.file_size(path)))
 
             except UnicodeEncodeError as error:
                 download_status = 'fail'
@@ -825,7 +826,7 @@ class GoogleImageDownload:
                 # format the item for readability
                 item = GoogleImageDownload.format_object(item)
                 if self.configuration['metadata']:
-                    print("\nImage Metadata: " + str(item))
+                    logging.info("Image Metadata: " + str(item))
 
                 # download the images
                 download_status, download_message, return_image_name, absolute_path = GoogleImageDownload.download_image(
@@ -833,7 +834,7 @@ class GoogleImageDownload:
                     self.configuration['print_urls'], self.configuration['socket_timeout'],
                     self.configuration['prefix'], self.configuration['print_size'],
                     self.configuration['no_numbering'], self.configuration['no_download'])
-                print(download_message)
+                logging.info(download_message)
                 if download_status == "success":
 
                     # download image_thumbnails
@@ -843,7 +844,7 @@ class GoogleImageDownload:
                             self.configuration['print_urls'], self.configuration['socket_timeout'],
                             self.configuration['print_size'],
                             self.configuration['no_download'])
-                        print(download_message_thumbnail)
+                        logging.info(download_message_thumbnail)
 
                     count += 1
                     item['image_filename'] = return_image_name
@@ -859,9 +860,9 @@ class GoogleImageDownload:
                 page = page[end_content:]
             i += 1
         if count < limit:
-            print("\n\nUnfortunately all " + str(limit)
-                  + " could not be downloaded because some images were not downloadable. "
-                  + str(count - 1) + " is all we got for this search filter!")
+            logging.info("Unfortunately all " + str(limit)
+                         + " could not be downloaded because some images were not downloadable. "
+                         + str(count - 1) + " is all we got for this search filter!")
         return items, error_count, abs_path
 
     def download(self):
@@ -926,11 +927,11 @@ class GoogleImageDownload:
         if self.configuration['single_image'] is None and self.configuration['url'] is None \
                 and self.configuration['similar_images'] is None and \
                 self.configuration['keywords'] is None and self.configuration['keywords_from_file'] is None:
-            print('-------------------------------\n'
-                  'Uh oh! Keywords is a required argument \n\n'
-                  'Please refer to the documentation on guide to writing queries \n'
-                  '\n\nexiting!\n'
-                  '-------------------------------')
+            logging.info('-------------------------------\n'
+                         + 'Uh oh! Keywords is a required argument \n'
+                         + 'Please refer to the documentation on guide to writing queries \n'
+                         + 'exiting!\n'
+                         + '-------------------------------')
             sys.exit()
 
         # If this argument is present, set the custom output directory
@@ -950,10 +951,10 @@ class GoogleImageDownload:
             for sky in suffix_keywords:  # 1.for every suffix keywords
                 i = 0
                 while i < len(search_keyword):  # 2.for every main keyword
-                    iteration = "\n" + "Item no.: " + str(i + 1) + " -->" + " Item name = " + str(pky) + str(
+                    iteration = "Item no.: " + str(i + 1) + " -->" + " Item name = " + str(pky) + str(
                         search_keyword[i] + str(sky))
-                    print(iteration)
-                    print("Evaluating...")
+                    logging.info(iteration)
+                    logging.info("Evaluating...")
                     search_term = pky + search_keyword[i] + sky
 
                     if self.configuration['image_directory']:
@@ -981,9 +982,9 @@ class GoogleImageDownload:
                                                                               self.configuration['chrome_driver_path'])
 
                     if self.configuration['no_download']:
-                        print("Starting to Print Image URLS")
+                        logging.info("Starting to Print Image URLS")
                     else:
-                        print("Starting Download...")
+                        logging.info("Starting Download...")
                     # get all image items and download images
                     items, error_count, abs_path = self._get_all_items(raw_html, main_directory, dir_name, limit)
                     paths[pky + search_keyword[i] + sky] = abs_path
@@ -994,18 +995,18 @@ class GoogleImageDownload:
                             if not os.path.exists("logs"):
                                 os.makedirs("logs")
                         except OSError as error:
-                            print(error)
+                            logging.info(error)
                         json_file = open("logs/" + search_keyword[i] + ".json", "w")
                         json.dump(items, json_file, indent=4, sort_keys=True)
                         json_file.close()
 
                     # Related images
                     if self.configuration['related_images']:
-                        print("\nGetting list of related keywords...this may take a few moments")
+                        logging.info("Getting list of related keywords...this may take a few moments")
                         tabs = GoogleImageDownload.get_all_tabs(raw_html)
                         for key, value in tabs.items():
                             final_search_term = (search_term + " - " + key)
-                            print("\nNow Downloading - " + final_search_term)
+                            logging.info("Now Downloading - " + final_search_term)
                             if limit < 101:
                                 new_raw_html = GoogleImageDownload.download_page(value)  # download page
                             else:
@@ -1017,9 +1018,9 @@ class GoogleImageDownload:
                             self._get_all_items(new_raw_html, main_directory, search_term + " - " + key, limit)
 
                     i += 1
-                    print("\nErrors: " + str(error_count) + "\n")
+                    logging.info("Errors: " + str(error_count))
         if self.configuration['print_paths']:
-            print(paths)
+            logging.info(paths)
         return paths, url
 
 
@@ -1038,11 +1039,11 @@ def main():
             response = GoogleImageDownload(arguments)
             response.download()
 
-            print("\nEverything downloaded!")
+            logging.info("Everything downloaded!")
             time_1 = perf_counter()  # stop the timer
             #  Calculating the total time required to crawl, find and download all the links of 60,000 images
             total_time = time_1 - time_0
-            print("Total time taken: {:11.2f} seconds.".format(total_time))
+            logging.info("Total time taken: {:11.2f} seconds.".format(total_time))
 
 
 if __name__ == "__main__":

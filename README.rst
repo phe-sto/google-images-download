@@ -4,8 +4,8 @@ Google Images Download
 Python Script for 'searching' and 'downloading' giant image datasets from Google images to the local hard disk!
 It's more of less the fork number 800 of the `googleimages-download library <https://github.com/hardikvasa/google-images-download/>`__.
 With more than 4 thousand stars on GitHub the library surely filled 100% dataset creator needs. On the other hand, it
-seemed hard to maintain for various reasons. One of them being the python2/3 compatibility leading to many
-if/else when using urllib. This one being completely different between python 2 and 3. This fork only support python 3.
+seemed hard to maintain for various reasons. One of them being the ython2/3 compatibility leading to many
+if/else when using urllib. This one being completely different between Python 2 and 3. This fork only support Python 3.
 The original library did not comply Pythonic standards in term of coding, readability, testing and documentation. It
 therefore create a technical debt.
 
@@ -14,9 +14,9 @@ therefore create a technical debt.
 Summary
 =======
 
-This is a command line python program to search keywords/key-phrases on Google Images
+This is a command line Python program to search keywords/key-phrases on Google Images
 and optionally download images to your computer. You can also invoke this script from
-another python file.
+another Python file.
 
 This is a small and ready-to-run program. No dependencies are required to be installed
 if you would only want to download up to 100 images per keyword. If you would want **more than 100
@@ -75,7 +75,7 @@ Installation
 .. code-block:: bash
 
     $ git clone https://github.com/phe-sto/google-images-download.git
-    $ cd google-images-download && sudo python3 setup.py install
+    $ cd google-images-download && sudo Python3 setup.py install
     OR
     $ python3 -m pip install google_images_download-0.1-py2.py3-none-any.whl
     OR
@@ -110,7 +110,7 @@ Contribute
 Anyone is welcomed and even encouraged to contribute to this project.
 If you would like to make a change, open a pull request. Please do not forget to update tests and run the
 ``review-test.sh`` script that produce test and coverage reports. All new Python shall be documented using docstrings in
-reStructuredText to be included in `sphinx documentation framework <https://pythonhosted.org/an_example_pypi_project/sphinx.html>`__.
+reStructuredText to be included in `sphinx documentation framework <https://Pythonhosted.org/an_example_pypi_project/sphinx.html>`__.
 For issues and discussion visit the `Issue Tracker <https://github.com/phe-sto/google-images-download/issues>`__.
 The aim of this repo is to keep it simple, stand-alone and compliant with Python development standards.
 
@@ -122,7 +122,7 @@ The full documentation can be founded under the developer `PapIT website <https:
 Compatibility
 =============
 
-This program is compatible with python 3.x only.
+This program is compatible with Python 3.x only.
 It is a download-and-run program with no changes to the file.
 You will just have to specify parameters through the command line.
 
@@ -144,10 +144,10 @@ If downloaded via the UI, unzip the file downloaded, go to the 'google_images_do
     $ python google_images_download.py [Arguments...]
 
 
-Usage - From another python script
+Usage - From another Python script
 ==================================
 
-If you would want to use this library from another python file, you could use it as shown below:
+If you would want to use this library from another Python file, you could use it as shown below:
 
 .. code-block:: python
 
@@ -317,7 +317,7 @@ Arguments
 +-------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------+
 | print_paths       | pp          | Prints the list of all the absolute paths of the downloaded images                                                            |
 |                   |             |                                                                                                                               |
-|                   |             | When calling the script from another python file, this list will be saved in a variable (as shown in the example below)       |
+|                   |             | When calling the script from another Python file, this list will be saved in a variable (as shown in the example below)       |
 |                   |             |                                                                                                                               |
 |                   |             | This argument also allows you to print the list on the console                                                                |
 +-------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------+
@@ -417,7 +417,7 @@ download images based on arguments passed.
 Examples
 ========
 
-- If you are calling this library from another python file, below is the sample code
+- If you are calling this library from another Python file, below is the sample code
 
 .. code-block:: python
 
@@ -572,10 +572,24 @@ you will get the result like this:
     Author: Christohe Brun
     Author-email: christophe.brun@papit.fr
     License: NO LICENSE, FEEL FREE!
-    Location: /home/christophe/google-images-download
-    Requires: selenium, coverage, pytest, pytest-html, sphinx, pylint, tox, install sphinx_bootstrap_theme
+    Location: /home/chrichri/.local/lib/python3.6/site-packages
+    Requires: pytest, pytest-html, coverage, sphinx, sphinx-bootstrap-theme, pylint, tox, selenium
     Files:
-    Cannot locate installed-files.txt
+      ../../../bin/google-images-download
+      google_images_download-0.1.dist-info/DESCRIPTION.rst
+      google_images_download-0.1.dist-info/INSTALLER
+      google_images_download-0.1.dist-info/METADATA
+      google_images_download-0.1.dist-info/RECORD
+      google_images_download-0.1.dist-info/WHEEL
+      google_images_download-0.1.dist-info/entry_points.txt
+      google_images_download-0.1.dist-info/metadata.json
+      google_images_download-0.1.dist-info/top_level.txt
+      google_images_download/__init__.py
+      google_images_download/__main__.py
+      google_images_download/__pycache__/__init__.cpython-36.pyc
+      google_images_download/__pycache__/__main__.cpython-36.pyc
+      google_images_download/__pycache__/google_images_download.cpython-36.pyc
+      google_images_download/google_images_download.py
 
 **Permission denied creating directory 'downloads'**
 
@@ -615,6 +629,15 @@ For **All the operating systems** you will have to use '--chromedriver' or '-cd'
 chromedriver that you have downloaded in your machine.
 
 If on any rare occasion the chromedriver does not work for you, try downgrading it to a lower version.
+
+Donation
+========
+
+You can donate to support Python and Open Source development.
+
+**BTC** ``32JSkGXcBK2dirP6U4vCx9YHHjV5iSYb1G``
+
+**ETH** ``0xF556505d13aC9a820116d43c29dc61417d3aB2F8``
 
 Disclaimer
 ==========
