@@ -168,6 +168,7 @@ class GoogleImageDownload:
     """
     Main class of this data creator. The one to call directly within a script.
     """
+    __slots__ = ["configuration"]
 
     def __init__(self, argument_or_configuration):
         """
